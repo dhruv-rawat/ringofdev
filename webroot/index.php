@@ -1,3 +1,14 @@
+<?php
+session_start();
+include("../conn/config.php");
+
+if (!$_SESSION['login_user']){
+
+    header("Location: ../login.php");
+    die();
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
