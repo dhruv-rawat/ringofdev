@@ -19,7 +19,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     while($row = $result->fetch_assoc()) {
 
           $_SESSION['login_user']=$row["name"];
-          $_SESSION['login_password']= $row["password"];     
+          $_SESSION['login_password']= $row["password"];  
+          $_SESSION['login_email']= $row["email"];  
 
         
     }
