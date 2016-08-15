@@ -66,7 +66,7 @@ if (!$_SESSION['login_user']){
 
                     
                     
-                    <li><a href="">Change Password</a></li>
+                    <li><a href="change_password.php">Change Password</a></li>
 
              
                     <li><a  href="../logout.php">Log Out</a></li>
