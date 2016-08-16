@@ -5,13 +5,13 @@ include("../conn/config.php");
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-	$name=$conn->real_escape_string($_POST['name']);
+	$name=stripslashes($conn->real_escape_string($_POST['name']));
     
-    $password=$conn->real_escape_string($_POST['password']);
+    $password=stripslashes($conn->real_escape_string($_POST['password']));
 
-    $email=$conn->real_escape_string($_POST['email']);
+    $email=stripslashes($conn->real_escape_string($_POST['email']));
 
-    $Confirm_password=$conn->real_escape_string($_POST['confirmpassword']);
+    $Confirm_password=stripslashes($conn->real_escape_string($_POST['confirmpassword']));
 
 
       if($password==$Confirm_password){
