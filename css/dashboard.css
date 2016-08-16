@@ -1,0 +1,64 @@
+body{
+	background-color: rgb(245,245,245);
+}
+p{
+	font-size: 15px;
+}
+
+.blogblock{
+	padding: 2%;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid rgb(220,220,220);
+	margin: 20px 0px;
+}
+.blogblock .blog-name{
+	color: rgb(50,50,50);
+	font-weight: bold;
+	font-size: 20px;
+}
+.blogblock .blog-date{
+	font-size: 12px;
+	font-weight: bold;
+}
+.blogblock .tags{
+	font-size: 12px;
+	font-weight: bold;
+}
+@media(max-width: 480px)
+{
+	.blogblock .blog-name{
+		color: rgb(50,50,50);
+		font-weight: bold;
+		font-size: 16px;
+	}
+}
+.blogblock .blog-content{
+	padding: 10px;
+	font-weight: normal;
+}
+.query-result{
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px 0px;
+}
+.query-result-alt{
+	margin: 30px 0px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+.query-inside{
+	cursor: pointer;
+	padding: 10px 10px;
+	border: 1px solid lightgrey;
+	border-radius: 30px;
+	display: inline;
+}
+.query-inside:hover{
+	background-color: rgb(230,230,230);
+}
+.query-fail{
+	color: rgb(200,50,50);
+}

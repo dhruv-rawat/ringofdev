@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+}
 include("conn/config.php");
 
 
@@ -7,25 +9,22 @@ include("conn/config.php");
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 
   
-	$email=stripslashes($conn->real_escape_string($_POST['email']));
-	$password=stripslashes($conn->real_escape_string($_POST['password']));
-  
+	$email=stripslashes(@$conn->real_escape_string($_POST['email']));
+	$password=stripslashes(@$conn->real_escape_string($_POST['password']));
+  $password=md5($password);
+  $password=sha1($password);
+  $password=crypt($password,"csi");
+	$result=@$conn->query("SELECT id,name,email,password FROM `users_list` WHERE email='$email' AND password='$password'");
 
-
-	$result=$conn->query("SELECT name,email,password FROM `users_list` WHERE email='$email' AND password='$password'");
-
-  $count=$result->num_rows;
+  @$count=$result->num_rows;
   
 
 	if($count == 1){
 
     while($row = $result->fetch_assoc()) {
-
-          $_SESSION['login_user']=$row["name"];
-          $_SESSION['login_password']= $row["password"];  
+          $_SESSION['login_id']=$row["id"]; 
+          $_SESSION['login_user']=$row["name"]; 
           $_SESSION['login_email']= $row["email"];
-
-        
     }
 
     

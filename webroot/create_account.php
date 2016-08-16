@@ -1,4 +1,7 @@
-<?php session_start();
+<?php 
+if (session_status() == PHP_SESSION_NONE) {
+	    session_start();
+}
 include("../conn/config.php");
 
 
@@ -15,41 +18,27 @@ include("../conn/config.php");
 
 
       if($password==$Confirm_password){
+      	$password=md5($password);
+      	$password=sha1($password);
+      	$password=crypt($password,"csi");
 
       	if($conn->query("INSERT INTO `users_list` (`id`, `name`,`password`, `email`) VALUES (NULL, '$name', '$password','$email')")){
 
  				echo "<div class=\"alert alert-success fade in text-center\"\>
-                    <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>Successfully made an ID! Start Booking :)</strong></div>";
-
-
-
+                    <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>Account Successfully Created :)</strong></div>";
  			}
  			else{
 
  				echo "<div class=\"alert alert-danger fade in text-center\"\>
                         <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>The account has not been created. Some Error has occured in DB </strong></div>";
-
- 				
-
-
  			}
 
 
       }
-
       else{
 
       	echo "<div class=\"alert alert-alert fade in text-center\"\>
                         <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>The Password Confirmation Didnot Matched!Try Again.. </strong></div>";
-
- 			
-
-     
-
-		
-
-
-
 	}
       }
 

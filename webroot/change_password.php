@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+}
 include("../conn/config.php");
 
 if (!$_SESSION['login_user']){
@@ -18,27 +20,31 @@ else{
     
     $email=$_SESSION['login_email'];
 
+    $result=@$conn->query("SELECT password FROM `users_list` WHERE email='$email'");
 
+    @$count=$result->num_rows;
+    $password="";
 
-      if ($currentpassword==$_SESSION['login_password']){
-
+    if($count == 1)
+      while($row = @$result->fetch_assoc()) {
+            $password=@$row["password"];
+      }
+      $currentpassword=md5($currentpassword);
+      $currentpassword=sha1($currentpassword);
+      $currentpassword=crypt($currentpassword,"csi");
+      if ($currentpassword==$password){
+      $newpassword=md5($newpassword);
+      $newpassword=sha1($newpassword);
+      $newpassword=crypt($newpassword,"csi");
       if($conn->query("UPDATE `users_list` SET `password`='$newpassword' WHERE email='$email' ")){
 
         echo "<div class=\"alert alert-success fade in text-center\"\>
                     <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>Successfully Changed the Password :)</strong></div>";
-                    $_SESSION['login_password']=$newpassword;
-
-
-
       }
       else{
 
         echo "<div class=\"alert alert-danger fade in text-center\"\>
                         <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>The account has NOT CHANGED . Some Error has occured in DB </strong></div>";
-
-        
-
-
       }
 
 
@@ -47,8 +53,6 @@ else{
 
            echo "<div class=\"alert alert-info fade in text-center\"\>
             <a href=\"create_account.php\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a><strong>The Current Password is incorrect! </strong></div>";
-
-
       }
 
     
@@ -83,8 +87,6 @@ else{
     <script src="../js/jquery.js"></script>
  
     <script src="../js/bootstrap.min.js"></script>
-    
-    
       
     <!-- BootstrapValidator -->
     <script src="../js/bootstrapValidator.min.js" type="text/javascript"></script>
@@ -106,26 +108,15 @@ else{
             <div>
                 <ul class="nav navbar-nav">
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="">Blogs</a></li>
                     <li><a href="">Write Blog</a></li>
                     
-                  
-                    
-                   
                 </ul>
             </div>
 
             <div>
                 <ul class="nav navbar-nav navbar-right">
-
-
-                  <li ><a href="">Delete Blog</a></li>
-
-
-                    
                     
                     <li   class="active"><a href="change_password.php">Change Password</a></li>
-
              
                     <li><a  href="../logout.php">Log Out</a></li>
                 </ul>
@@ -133,7 +124,6 @@ else{
 
         </div>
     </nav>
-
     <br>
     
   <div class="container">
@@ -143,10 +133,6 @@ else{
       <div class="panel-body">
 
         <form id="password-form" method="POST" class="form-horizontal" action="#">
-
-
-
-
 
           <div class="form-group">
             <label class="col-md-2 control-label" for="currentpassword">Current Password</label>
@@ -232,8 +218,6 @@ else{
             }
           }
         }
-
-
 
       }
     });
