@@ -2,10 +2,13 @@
 session_start();
 include("conn/config.php");
 
+
+
 if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-	$email=$conn->real_escape_string($_POST['email']);
-	$password=$conn->real_escape_string($_POST['password']);
+  
+	$email=stripslashes($conn->real_escape_string($_POST['email']));
+	$password=stripslashes($conn->real_escape_string($_POST['password']));
   
 
 
