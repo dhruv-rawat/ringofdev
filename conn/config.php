@@ -4,7 +4,7 @@
 
 		$servername = "localhost";
 		$username = "root";
-		$password = "shyam";
+		$password = "";
 		$dbname = "blog_demo";
 		$conn;
 
