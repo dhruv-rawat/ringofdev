@@ -13,8 +13,8 @@ else{
   if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 
-    $currentpassword=$conn->real_escape_string($_POST['currentpassword']);
-    $newpassword=$conn->real_escape_string($_POST['newpassword']);
+    $currentpassword=stripslashes($conn->real_escape_string($_POST['currentpassword']));
+    $newpassword=stripslashes($conn->real_escape_string($_POST['newpassword']));
     
     $email=$_SESSION['login_email'];
 
